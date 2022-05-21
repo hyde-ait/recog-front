@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import "../styles/App.css";
 import "../styles/Code.css";
+import "../styles/terminal.css";
 import Appbar from "../components/layout/Appbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
