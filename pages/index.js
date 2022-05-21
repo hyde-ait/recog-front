@@ -1,12 +1,44 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useState, createContext } from "react";
 import MediaOptions from "../components/MediaOptions";
 import PhotoMedia from "../components/PhotoMedia";
 import ProtoTxtEditor from "../components/ProtoTxtEditor";
 import VideoStream from "../components/VideoStream";
+import { MetadataProvider } from "../context/MetadataProvider";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const [photoDisplay, setPhotoDisplay] = useState("none");
+  const [buttonDisplay, setButtonDisplay] = useState("inline");
+  const [editorDisplay, setEditorDisplay] = useState("none");
+  const [stunChecked, setStunChecked] = useState(true);
+
+  const handleDisplay = (mediaType) => {
+    // change media type
+    if (mediaType === "photo") {
+      setPhotoDisplay("inline");
+      setButtonDisplay("none");
+    } else {
+      setPhotoDisplay("none");
+      setButtonDisplay("inline");
+    }
+  };
+
+  const changeTransform = (transform) => {
+    console.log(transform);
+    //send type of transformation
+    if (transform === "custom") {
+      //show protobuf editor for custom models
+      setEditorDisplay("inline");
+    } else {
+      setEditorDisplay("none");
+    }
+  };
+
+  const changeStun = (status) => {
+    setStunChecked(status);
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -15,12 +47,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <MediaOptions></MediaOptions>
-        <ProtoTxtEditor></ProtoTxtEditor>
-        <PhotoMedia></PhotoMedia>
-        <VideoStream></VideoStream>
-      </main>
+      <div>
+        <MetadataProvider>
+          <MediaOptions
+            change={handleDisplay}
+            transform={changeTransform}
+            stunChecked={changeStun}
+          ></MediaOptions>
+
+          <ProtoTxtEditor display={editorDisplay}></ProtoTxtEditor>
+
+          <PhotoMedia display={photoDisplay}></PhotoMedia>
+
+          <VideoStream
+            display={buttonDisplay}
+            stunChecked={stunChecked}
+          ></VideoStream>
+        </MetadataProvider>
+      </div>
 
       <footer className={styles.footer}>
         <a
