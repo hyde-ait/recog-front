@@ -9,6 +9,7 @@ import TerminalIcon from "@mui/icons-material/Terminal";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import Link from "@mui/material/Link";
+import LoginIcon from "@mui/icons-material/Login";
 
 export default function Appbar() {
   return (
@@ -35,20 +36,25 @@ export default function Appbar() {
             </IconButton>
           </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <h3>Real Time Face Recognition PROTOTYPE.</h3>
+            <h3>RECOG PROTOTYPE</h3>
           </Typography>
           <Link href="/terminal">
-            <IconButton
+            <Button
               size="large"
               edge="start"
               color="secondary"
               aria-label="menu"
+              startIcon={<TerminalIcon />}
             >
-              <TerminalIcon />
-            </IconButton>
+              SSH Terminal
+            </Button>
           </Link>
-
-          <Button color="inherit">Login</Button>
+          {"|"}
+          <Link href="/login">
+            <Button startIcon={<LoginIcon></LoginIcon>} color="secondary">
+              Login
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>

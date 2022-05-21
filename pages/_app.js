@@ -4,6 +4,7 @@ import "../styles/Code.css";
 import "../styles/terminal.css";
 import Appbar from "../components/layout/Appbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Footer from "../components/layout/Footer";
 
 const theme = createTheme({
   status: {
@@ -29,6 +30,7 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <Appbar />
       <Component {...pageProps} />
+      <Footer />
     </ThemeProvider>
   );
 }

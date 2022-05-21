@@ -1,3 +1,10 @@
+:root {
+  --main: #222831;
+  --second: #112b3c;
+  --third: #112b3c;
+  --fourth: #eeeeee;
+}
+
 html,
 body {
   padding: 0;
@@ -6,7 +13,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   background-color: #112b3c;
-  color: white;
+  color: var(--fourth);
 }
 
 a {
