@@ -23,7 +23,31 @@ const theme = createTheme({
       main: "#FFFFFF",
     },
   },
+  overrides: {
+    // Applied to the <ul> element
+    MuiMenu: {
+      list: {
+        backgroundColor: "#cccccc",
+      },
+    },
+    // Applied to the <li> elements
+    MuiMenuItem: {
+      root: {
+        fontSize: 12,
+      },
+    },
+  },
 });
+
+theme.typography.h3 = {
+  fontSize: "1.2rem",
+  "@media (min-width:600px)": {
+    fontSize: "1.5rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    fontSize: "2rem",
+  },
+};
 
 function MyApp({ Component, pageProps }) {
   return (

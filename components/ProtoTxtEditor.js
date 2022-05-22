@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-import {
-  highlight,
-  highlightAll,
-  languages,
-} from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-protobuf";
-import "prismjs/themes/prism-dark.css"; //Example style, you can use another
 
 const ProtoTxtEditor = (props) => {
   /*Test : Model file validation
@@ -21,7 +12,6 @@ const ProtoTxtEditor = (props) => {
   const [code, setCode] = useState(
     `input: "data"\ninput_shape{\n  dim: 1\n  dim: 3\n}`
   );
-  const [language, setLanguage] = useState(languages.protobuf);
   const [modelFile, setModelFile] = useState(null);
   const [configFile, setConfigFile] = useState(null);
   const [configError, setConfigError] = useState(null);
@@ -30,11 +20,6 @@ const ProtoTxtEditor = (props) => {
   const [configType, setConfigType] = useState("prototxt");
   const [editorDisplay, setEditorDisplay] = useState(true);
   const [submitDisplay, setsubmitDisplay] = useState(true);
-
-  const handleInput = (e) => {
-    setCode(e.target.value);
-    highlightAll();
-  };
 
   const handleTypeChange = (e) => {
     let type = e.target.value;
@@ -146,8 +131,14 @@ const ProtoTxtEditor = (props) => {
           <fieldset className="editor">
             <legend>Configuration file :</legend>
             <label>Write model configuration : </label>
-            <div className="code-editor">
-              <textarea></textarea>
+            <div>
+              <textarea
+                onChange={(e) => {
+                  setCode(e.target.value);
+                }}
+                defaultValue={code}
+              ></textarea>
+              <p>Config file content preview :</p>
               <pre>
                 <code>{code}</code>
               </pre>

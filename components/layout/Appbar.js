@@ -31,13 +31,25 @@ export default function Appbar() {
               edge="start"
               color="secondary"
               aria-label="menu"
-            >
-              <HomeIcon />
-            </IconButton>
+            ></IconButton>
           </Link>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <h3>RECOG PROTOTYPE</h3>
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Link href="/">
+              {" "}
+              <Button
+                size="large"
+                edge="start"
+                color="secondary"
+                aria-label="menu"
+              >
+                <Typography variant="h3" component="div">
+                  {" "}
+                  Recog Prototype
+                </Typography>
+              </Button>
+            </Link>
+          </Box>
+
           <Link href="/terminal">
             <Button
               size="large"

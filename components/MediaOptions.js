@@ -3,6 +3,10 @@ import {
   MetadataContext,
   SetMetadataContext,
 } from "../context/MetadataProvider";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export default function MediaOptions(props) {
   const [vidResolution, setVidResolution] = useState("320x240");
@@ -51,46 +55,103 @@ export default function MediaOptions(props) {
   return (
     <div className="option">
       <h2>Options</h2>
-      <label>Use</label>
-      <select id="type" onChange={handleChange}>
-        <option value="video">Video</option>
-        <option value="photo">Photo</option>
-      </select>
-      <select
-        onChange={handleTransform}
-        value={vidTransform}
-        id="video-transform"
-      >
-        <option value="none">No transform</option>
-        <option value="face">Face Detection</option>
-        <option value="facecv">Face Detection (with cvlib)</option>
-        <option value="object">Object Detection (with cvlib)</option>
-        <option value="gender">Gender Detection (with cvlib)</option>
-        <option value="edges">Edge detection</option>
-        <option value="cartoon">Cartoon effect</option>
-        <option value="rotate">Rotate</option>
-        <option value="custom">Custom model</option>
-      </select>
-      <select
-        value={vidResolution}
-        onChange={changeRes}
-        style={{ display: photoDisplay }}
-        id="video-resolution"
-      >
-        <option value="320x240">320x240</option>
-        <option value="640x480">640x480</option>
-        <option value="960x540">960x540</option>
-        <option value="1280x720">1280x720</option>
-      </select>
-      <select
-        value={vidCodec}
-        onChange={changeCodec}
-        style={{ display: photoDisplay }}
-        id="video-codec"
-      >
-        <option value="H264/90000">H264</option>
-        <option value="VP8/90000">VP8</option>
-      </select>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel
+          sx={{ backgroundColor: "primary", color: "white" }}
+          id="type"
+        >
+          Media Type
+        </InputLabel>
+        <Select
+          labelId="type"
+          id="demo-simple-select"
+          label="Media Type"
+          onChange={handleChange}
+          defaultValue={"video"}
+          sx={{ backgroundColor: "primary", color: "white" }}
+        >
+          <MenuItem value={"video"}>Videostream</MenuItem>
+          <MenuItem value={"photo"}>Photo</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel
+          sx={{ backgroundColor: "primary", color: "white" }}
+          id="type"
+        >
+          Transformation Type
+        </InputLabel>
+        <Select
+          label="Transformation Type"
+          onChange={handleTransform}
+          value={vidTransform}
+          sx={{ backgroundColor: "primary", color: "white" }}
+        >
+          <MenuItem value="none">No transform</MenuItem>
+          <MenuItem value="face">Face Detection</MenuItem>
+          <MenuItem value="facecv">Face Detection (with cvlib)</MenuItem>
+          <MenuItem value="object">Object Detection (with cvlib)</MenuItem>
+          <MenuItem value="gender">Gender Detection (with cvlib)</MenuItem>
+          <MenuItem value="edges">Edge detection</MenuItem>
+          <MenuItem value="cartoon">Cartoon effect</MenuItem>
+          <MenuItem value="rotate">Rotate</MenuItem>
+          <MenuItem value="custom">Custom model</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel
+          sx={{
+            backgroundColor: "primary",
+            color: "white",
+            display: photoDisplay,
+          }}
+          id="type"
+        >
+          Video Resolution
+        </InputLabel>
+        <Select
+          label="Video Resolution"
+          onChange={changeRes}
+          value={vidResolution}
+          sx={{
+            backgroundColor: "primary",
+            color: "white",
+            display: photoDisplay,
+          }}
+        >
+          <MenuItem value="320x240">320x240</MenuItem>
+          <MenuItem value="640x480">640x480</MenuItem>
+          <MenuItem value="960x540">960x540</MenuItem>
+          <MenuItem value="1280x720">1280x720</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel
+          sx={{
+            backgroundColor: "primary",
+            color: "white",
+            display: photoDisplay,
+          }}
+          id="type"
+        >
+          Video Codec
+        </InputLabel>
+        <Select
+          label="Video Codec"
+          value={vidCodec}
+          onChange={changeCodec}
+          style={{ display: photoDisplay }}
+          id="video-codec"
+          sx={{
+            backgroundColor: "primary",
+            color: "white",
+          }}
+        >
+          <MenuItem value="H264/90000">H264</MenuItem>
+          <MenuItem value="VP8/90000">VP8</MenuItem>
+        </Select>
+      </FormControl>
+
       <div className="option" style={{ display: stunDisplay }} id="stun">
         <input
           type="checkbox"
