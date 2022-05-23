@@ -3,8 +3,9 @@ import "../styles/App.css";
 import "../styles/Code.css";
 import "../styles/terminal.css";
 import Appbar from "../components/layout/Appbar";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Footer from "../components/layout/Footer";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { SessionProvider } from "next-auth/react";
 
 const theme = createTheme({
   status: {
@@ -49,13 +50,15 @@ theme.typography.h3 = {
   },
 };
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <ThemeProvider theme={theme}>
-      <Appbar />
-      <Component {...pageProps} />
-      <Footer />
-    </ThemeProvider>
+    <SessionProvider session={session}>
+      <ThemeProvider theme={theme}>
+        <Appbar />
+        <Component {...pageProps} />
+        <Footer />
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
 
