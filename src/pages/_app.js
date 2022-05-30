@@ -5,7 +5,7 @@ import "../styles/terminal.css";
 import Appbar from "../components/layout/Appbar";
 import Footer from "../components/layout/Footer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { SessionProvider } from "next-auth/react";
+import { AuthProvider } from "../context/AuthProvider";
 
 const theme = createTheme({
   status: {
@@ -13,7 +13,7 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#112B3C",
+      main: "#FFFFFF",
       darker: "#112B3C",
     },
     neutral: {
@@ -21,7 +21,7 @@ const theme = createTheme({
       contrastText: "#fff",
     },
     secondary: {
-      main: "#FFFFFF",
+      main: "#112B3C",
     },
   },
   overrides: {
@@ -50,15 +50,15 @@ theme.typography.h3 = {
   },
 };
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
+    <AuthProvider>
       <ThemeProvider theme={theme}>
         <Appbar />
         <Component {...pageProps} />
         <Footer />
       </ThemeProvider>
-    </SessionProvider>
+    </AuthProvider>
   );
 }
 

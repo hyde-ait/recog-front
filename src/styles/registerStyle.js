@@ -21,7 +21,7 @@ export default css.global`
     display: inline-block;
     border: none;
     background: var(--main);
-    color: var(--third);
+    color: var(--fourth);
     border: 1px solid var(--third);
   }
 
@@ -29,7 +29,7 @@ export default css.global`
   input[type="password"]:focus,
   input[type="email"]:focus {
     background-color: var(--fourth);
-    outline: none;
+    color: var(--third);
   }
 
   /* Overwrite default styles of hr */

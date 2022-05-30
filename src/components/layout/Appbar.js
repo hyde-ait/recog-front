@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,18 +8,41 @@ import IconButton from "@mui/material/IconButton";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-import Link from "@mui/material/Link";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Link from "../Link";
 import LoginIcon from "@mui/icons-material/Login";
+import useAuth from "../../hooks/useAuth";
 
 export default function Appbar() {
+  const user = useAuth();
+  const [showUser, setShowUser] = useState(false);
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    //show user when connected
+    if (user.user !== null) {
+      console.log(user);
+      setShowUser(true);
+      setEmail(user.user.email);
+    } else {
+      setShowUser(false);
+      setEmail("");
+    }
+  }, [user]);
+
+  const handleLogout = () => {
+    user.disconnect();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar color="secondary" position="static">
         <Toolbar>
+          {/*user.user.email ? user.user.email : null*/}
           <IconButton
             size="large"
             edge="start"
-            color="secondary"
+            color="primary"
             aria-label="menu"
             sx={{ mr: 2 }}
           >
@@ -29,44 +52,55 @@ export default function Appbar() {
             <IconButton
               size="large"
               edge="start"
-              color="secondary"
+              color="primary"
               aria-label="menu"
-            ></IconButton>
+            >
+              <HomeIcon></HomeIcon>
+            </IconButton>
           </Link>
           <Box sx={{ flexGrow: 1 }}>
-            <Link href="/">
-              {" "}
-              <Button
-                size="large"
-                edge="start"
-                color="secondary"
-                aria-label="menu"
-              >
-                <Typography variant="h3" component="div">
-                  {" "}
-                  Recog Prototype
-                </Typography>
-              </Button>
+            <Link
+              size="large"
+              edge="start"
+              color="primary"
+              aria-label="menu"
+              type="button"
+              href="/"
+            >
+              Recog Prototype
             </Link>
           </Box>
 
-          <Link href="/terminal">
-            <Button
-              size="large"
-              edge="start"
-              color="secondary"
-              aria-label="menu"
-              startIcon={<TerminalIcon />}
-            >
-              SSH Terminal
-            </Button>
+          <Link
+            href="/terminal"
+            size="large"
+            edge="start"
+            color="primary"
+            aria-label="menu"
+            type="button"
+            startIcon={<TerminalIcon />}
+          >
+            SSH Terminal
           </Link>
           {"|"}
-          <Link href="/login">
-            <Button startIcon={<LoginIcon></LoginIcon>} color="secondary">
+          {showUser ? (
+            <div>
+              <Button>{email}</Button>
+              {"|"}
+              <Button onClick={handleLogout} startIcon={<LogoutIcon />}>
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <Link
+              startIcon={<LoginIcon></LoginIcon>}
+              type="button"
+              href="/login"
+              color="primary"
+            >
               Login
-            </Button>
-          </Link>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

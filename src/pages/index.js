@@ -1,10 +1,11 @@
 import Head from "next/head";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import MediaOptions from "../components/MediaOptions";
 import PhotoMedia from "../components/PhotoMedia";
 import ProtoTxtEditor from "../components/ProtoTxtEditor";
 import VideoStream from "../components/VideoStream";
 import { MetadataProvider } from "../context/MetadataProvider";
+import useAuth from "../hooks/useAuth";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -12,6 +13,11 @@ export default function Home() {
   const [buttonDisplay, setButtonDisplay] = useState("inline");
   const [editorDisplay, setEditorDisplay] = useState("none");
   const [stunChecked, setStunChecked] = useState(true);
+  const user = useAuth();
+
+  useEffect(() => {
+    console.log(user.user);
+  }, []);
 
   const handleDisplay = (mediaType) => {
     // change media type

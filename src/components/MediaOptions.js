@@ -66,9 +66,16 @@ export default function MediaOptions(props) {
           labelId="type"
           id="demo-simple-select"
           label="Media Type"
+          variant="outlined"
           onChange={handleChange}
           defaultValue={"video"}
-          sx={{ backgroundColor: "primary", color: "white" }}
+          sx={[
+            {
+              borderColor: "secondary",
+              backgroundColor: "primary",
+              color: "white",
+            },
+          ]}
         >
           <MenuItem value={"video"}>Videostream</MenuItem>
           <MenuItem value={"photo"}>Photo</MenuItem>
