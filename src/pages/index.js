@@ -57,20 +57,35 @@ export default function Home() {
 
       <div>
         <MetadataProvider>
-          <MediaOptions
-            change={handleDisplay}
-            transform={changeTransform}
-            stunChecked={changeStun}
-          ></MediaOptions>
+          <div
+            style={{
+              width: "50%",
+              float: "left",
+              padding: "20px",
+            }}
+          >
+            <PhotoMedia display={photoDisplay}></PhotoMedia>
+            <VideoStream
+              display={buttonDisplay}
+              stunChecked={stunChecked}
+            ></VideoStream>
+          </div>
 
-          <ProtoTxtEditor display={editorDisplay}></ProtoTxtEditor>
+          <div
+            style={{
+              width: "20%",
+              float: "left",
+              padding: "20px",
+            }}
+          >
+            <MediaOptions
+              change={handleDisplay}
+              transform={changeTransform}
+              stunChecked={changeStun}
+            ></MediaOptions>
 
-          <PhotoMedia display={photoDisplay}></PhotoMedia>
-
-          <VideoStream
-            display={buttonDisplay}
-            stunChecked={stunChecked}
-          ></VideoStream>
+            <ProtoTxtEditor display={editorDisplay}></ProtoTxtEditor>
+          </div>
         </MetadataProvider>
       </div>
     </div>

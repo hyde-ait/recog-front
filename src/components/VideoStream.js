@@ -9,7 +9,9 @@ export default function VideoStream(props) {
   const [vidHeight, setVidHeight] = useState(320);
   const [vidWidth, setVidWidth] = useState(240);
   const [displayButton, setDisplayButton] = useState(true);
-  const [server, setServer] = useState("http://127.0.0.1:8000/offer");
+  const [server, setServer] = useState(
+    "https://recog-prototype.herokuapp.com/offer"
+  );
   const metadata = useContext(MetadataContext);
   const video = useRef();
 
@@ -67,14 +69,10 @@ export default function VideoStream(props) {
         // Show fps
         let fps = evt.streams[0].getVideoTracks()[0].getSettings().frameRate;
         if (fps) {
-          setFramerate("FPS = " + fps);
+          setFramerate(fps);
         }
-        setVidHeight(
-          "Height = " + evt.streams[0].getVideoTracks()[0].getSettings().height
-        );
-        setVidWidth(
-          "Width = " + evt.streams[0].getVideoTracks()[0].getSettings().width
-        );
+        setVidHeight(evt.streams[0].getVideoTracks()[0].getSettings().height);
+        setVidWidth(evt.streams[0].getVideoTracks()[0].getSettings().width);
       }, 10);
     });
 
@@ -295,10 +293,12 @@ export default function VideoStream(props) {
             Stop
           </button>
         )}
+        <div style={{ display: "flex" }}>
+          <pre id="framerate"> FPS : {framerate} |</pre>
+          <pre id="height"> Height: {vidHeight} |</pre>
+          <pre id="width"> Width : {vidWidth} |</pre>
+        </div>
 
-        <pre id="framerate">FPS : {framerate}</pre>
-        <pre id="height">Height: {vidHeight}</pre>
-        <pre id="width">Width : {vidWidth}</pre>
         <fieldset className="webcam">
           <legend>STREAM</legend>
           {loader ? <div id="loader"></div> : null}
@@ -309,14 +309,21 @@ export default function VideoStream(props) {
             playsInline={true}
           ></video>
         </fieldset>
-
-        <h2>SDP</h2>
-
-        <h3>Offer</h3>
-        <pre id="offer-sdp">{offerSdp}</pre>
-
-        <h3>Answer</h3>
-        <pre id="answer-sdp">{answerSdp}</pre>
+        <fieldset style={{ display: "flex", width: "100%" }}>
+          <legend>
+            <h2>SDP</h2>
+          </legend>
+          <div>
+            <div>
+              <h3>Offer</h3>
+              <pre id="offer-sdp">{offerSdp}</pre>
+            </div>
+            <div>
+              <h3>Answer</h3>
+              <pre id="answer-sdp">{answerSdp}</pre>
+            </div>
+          </div>
+        </fieldset>
       </div>
     </div>
   );

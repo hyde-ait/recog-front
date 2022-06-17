@@ -54,9 +54,20 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
-        <Appbar />
-        <Component {...pageProps} />
-        <Footer />
+        <div
+          style={{
+            display: "grid",
+          }}
+        >
+          <div>
+            <Appbar />
+            <Component {...pageProps} />
+          </div>
+
+          <div>
+            <Footer />
+          </div>
+        </div>
       </ThemeProvider>
     </AuthProvider>
   );

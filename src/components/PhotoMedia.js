@@ -48,7 +48,7 @@ export default function PhotoMedia(props) {
         method: "POST",
         body: formData,
       };
-      fetch("http://127.0.0.1:8000/photo", requestOptions)
+      fetch("https://recog-prototype.herokuapp.com/photo", requestOptions)
         .then((response) => response.blob())
         .then((imageBlob) => {
           var imageObjectURL = URL.createObjectURL(imageBlob);
