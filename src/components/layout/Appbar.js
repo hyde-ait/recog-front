@@ -12,6 +12,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Link from "../Link";
 import LoginIcon from "@mui/icons-material/Login";
 import useAuth from "../../hooks/useAuth";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 export default function Appbar() {
   const user = useAuth();
@@ -70,7 +71,18 @@ export default function Appbar() {
               Recog Prototype
             </Link>
           </Box>
-
+          <Link
+            href="/upload"
+            size="large"
+            edge="start"
+            color="primary"
+            aria-label="menu"
+            type="button"
+            startIcon={<CloudUploadIcon />}
+          >
+            Upload Model
+          </Link>
+          {"|"}
           <Link
             href="/terminal"
             size="large"

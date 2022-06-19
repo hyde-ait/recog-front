@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { MetadataContext } from "../context/MetadataProvider";
 
@@ -17,6 +18,11 @@ export default function VideoStream(props) {
 
   // peer connection
   const [pc, setPc] = useState(null);
+
+  useEffect(() => {
+    props.offer(offerSdp);
+    props.answer(answerSdp);
+  }, [offerSdp, answerSdp]);
 
   useEffect(() => {
     console.log(props.stunChecked);
@@ -282,49 +288,36 @@ export default function VideoStream(props) {
 
   return (
     <div style={{ display: props.display }}>
-      <div id="media">
-        <h2>Video:</h2>
-        {displayButton ? (
-          <button id="start" onClick={start}>
-            Start
-          </button>
-        ) : (
-          <button id="stop" onClick={stop}>
-            Stop
-          </button>
-        )}
-        <div style={{ display: "flex" }}>
-          <pre id="framerate"> FPS : {framerate} |</pre>
-          <pre id="height"> Height: {vidHeight} |</pre>
-          <pre id="width"> Width : {vidWidth} |</pre>
-        </div>
-
-        <fieldset className="webcam">
-          <legend>STREAM</legend>
-          {loader ? <div id="loader"></div> : null}
-          <video
-            id="video"
-            ref={video}
-            autoPlay={true}
-            playsInline={true}
-          ></video>
-        </fieldset>
-        <fieldset style={{ display: "flex", width: "100%" }}>
-          <legend>
-            <h2>SDP</h2>
-          </legend>
-          <div>
-            <div>
-              <h3>Offer</h3>
-              <pre id="offer-sdp">{offerSdp}</pre>
-            </div>
-            <div>
-              <h3>Answer</h3>
-              <pre id="answer-sdp">{answerSdp}</pre>
-            </div>
+      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid item xs={6} id="media">
+          <h2>Video</h2>
+          {displayButton ? (
+            <button id="start" onClick={start}>
+              Start
+            </button>
+          ) : (
+            <button id="stop" onClick={stop}>
+              Stop
+            </button>
+          )}
+          <div style={{ display: "flex" }}>
+            <pre id="framerate"> FPS : {framerate} |</pre>
+            <pre id="height"> Height: {vidHeight} |</pre>
+            <pre id="width"> Width : {vidWidth} |</pre>
           </div>
-        </fieldset>
-      </div>
+          <fieldset className="webcam">
+            <legend>STREAM</legend>
+            {loader ? <div id="loader"></div> : null}
+            <video
+              id="video"
+              ref={video}
+              autoPlay={true}
+              playsInline={true}
+              style={{ align: "center" }}
+            ></video>
+          </fieldset>
+        </Grid>
+      </Grid>
     </div>
   );
 }

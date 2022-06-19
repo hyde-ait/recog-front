@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState, createContext, useEffect } from "react";
 import MediaOptions from "../components/MediaOptions";
 import PhotoMedia from "../components/PhotoMedia";
-import ProtoTxtEditor from "../components/ProtoTxtEditor";
+import Sdp from "../components/Sdp";
 import VideoStream from "../components/VideoStream";
 import { MetadataProvider } from "../context/MetadataProvider";
 import useAuth from "../hooks/useAuth";
@@ -11,6 +11,8 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   const [photoDisplay, setPhotoDisplay] = useState("none");
   const [buttonDisplay, setButtonDisplay] = useState("inline");
+  const [offer, setOffer] = useState("");
+  const [answer, setAnswer] = useState("");
   const [editorDisplay, setEditorDisplay] = useState("none");
   const [stunChecked, setStunChecked] = useState(true);
   const user = useAuth();
@@ -28,6 +30,15 @@ export default function Home() {
       setPhotoDisplay("none");
       setButtonDisplay("inline");
     }
+  };
+
+  const handleAnswer = (a) => {
+    console.log(a);
+    setAnswer(a);
+  };
+
+  const handleOffer = (o) => {
+    setOffer(o);
   };
 
   const changeTransform = (transform) => {
@@ -55,27 +66,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      <div style={{ position: "relative", left: "250px" }}>
         <MetadataProvider>
-          <div
-            style={{
-              width: "50%",
-              float: "left",
-              padding: "20px",
-            }}
-          >
-            <PhotoMedia display={photoDisplay}></PhotoMedia>
-            <VideoStream
-              display={buttonDisplay}
-              stunChecked={stunChecked}
-            ></VideoStream>
-          </div>
-
           <div
             style={{
               width: "20%",
               float: "left",
-              padding: "20px",
+              margin: "10px 50px 0px 10px",
             }}
           >
             <MediaOptions
@@ -83,8 +80,33 @@ export default function Home() {
               transform={changeTransform}
               stunChecked={changeStun}
             ></MediaOptions>
-
-            <ProtoTxtEditor display={editorDisplay}></ProtoTxtEditor>
+          </div>
+          <div
+            style={{
+              float: "left",
+              alignItems: "stretch",
+              margin: "10px 0px 0px 0px",
+            }}
+          >
+            <PhotoMedia display={photoDisplay}></PhotoMedia>
+            <VideoStream
+              display={buttonDisplay}
+              stunChecked={stunChecked}
+              offer={setOffer}
+              answer={setAnswer}
+            ></VideoStream>
+          </div>
+          <div
+            style={{
+              margin: "10px 0px 0px 0px",
+              width: "50%",
+            }}
+          >
+            <Sdp
+              style={{ display: buttonDisplay }}
+              offer={handleOffer}
+              answer={handleAnswer}
+            ></Sdp>
           </div>
         </MetadataProvider>
       </div>
