@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Input } from "@mui/material";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { MetadataContext } from "../context/MetadataProvider";
 
@@ -286,11 +286,22 @@ export default function VideoStream(props) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
   }
 
+  function handleServer(e) {
+    setServer(e.target.value);
+  }
+
   return (
     <div style={{ display: props.display }}>
       <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6} id="media">
           <h2>Video</h2>
+          <div>
+            <Input
+              sx={{ bgcolor: "white", width: "100%" }}
+              value={server}
+              onChange={handleServer}
+            />
+          </div>
           {displayButton ? (
             <button id="start" onClick={start}>
               Start
