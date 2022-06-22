@@ -14,6 +14,25 @@ export default function VideoStream(props) {
     "https://recog-prototype.herokuapp.com/offer"
   );
   const metadata = useContext(MetadataContext);
+  const [sturn, setSturn] = useState([
+    { urls: ["stun:stun.l.google.com:19302"] },
+    {
+      urls: "turn:openrelay.metered.ca:80",
+      username: "openrelayproject",
+      credential: "openrelayproject",
+    },
+
+    {
+      urls: "turn:openrelay.metered.ca:443",
+      username: "openrelayproject",
+      credential: "openrelayproject",
+    },
+    {
+      urls: "turn:openrelay.metered.ca:443?transport=tcp",
+      username: "openrelayproject",
+      credential: "openrelayproject",
+    },
+  ]);
   const video = useRef();
 
   // peer connection
@@ -25,7 +44,9 @@ export default function VideoStream(props) {
   }, [offerSdp, answerSdp]);
 
   useEffect(() => {
+    console.log("Props is:");
     console.log(props.stunChecked);
+    chargePc();
   }, [props.stunChecked]);
 
   const changePc = (x) => {
@@ -36,26 +57,10 @@ export default function VideoStream(props) {
     var config = {
       sdpSemantics: "unified-plan",
     };
-    if (props.checked) {
-      config.iceServers = [
-        { urls: ["stun:stun.l.google.com:19302"] },
-        {
-          urls: "turn:openrelay.metered.ca:80",
-          username: "openrelayproject",
-          credential: "openrelayproject",
-        },
-
-        {
-          urls: "turn:openrelay.metered.ca:443",
-          username: "openrelayproject",
-          credential: "openrelayproject",
-        },
-        {
-          urls: "turn:openrelay.metered.ca:443?transport=tcp",
-          username: "openrelayproject",
-          credential: "openrelayproject",
-        },
-      ];
+    if (props.stunChecked) {
+      console.log("this is the sturn :");
+      console.log(sturn);
+      config.iceServers = sturn;
     }
     changePc(new RTCPeerConnection(config));
   };
