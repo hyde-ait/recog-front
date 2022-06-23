@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: "recogaks-01b2"
+    name: "recogaks-frontend"
     labels:
-        app: "recogaks-01b2"
+        app: "recogaks-frontend"
 spec:
     type: LoadBalancer
     ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
     selector:
-        app: "recogaks-01b2"
+        app: "recogaks-frontend"
