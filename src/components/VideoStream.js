@@ -10,9 +10,7 @@ export default function VideoStream(props) {
   const [vidHeight, setVidHeight] = useState(320);
   const [vidWidth, setVidWidth] = useState(240);
   const [displayButton, setDisplayButton] = useState(true);
-  const [server, setServer] = useState(
-    "https://recog-prototype.herokuapp.com/offer"
-  );
+  const [server, setServer] = useState("http://20.26.11.21/offer");
   const metadata = useContext(MetadataContext);
   const [sturn, setSturn] = useState([
     { urls: ["stun:stun.l.google.com:19302"] },
@@ -300,13 +298,7 @@ export default function VideoStream(props) {
       <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6} id="media">
           <h2>Video</h2>
-          <div>
-            <Input
-              sx={{ bgcolor: "white", width: "100%" }}
-              value={server}
-              onChange={handleServer}
-            />
-          </div>
+
           {displayButton ? (
             <button id="start" onClick={start}>
               Start
