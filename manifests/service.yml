@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: "akscluster-e2e5"
+    name: "akscluster-frontend"
     labels:
-        app: "akscluster-e2e5"
+        app: "akscluster-frontend"
 spec:
     type: LoadBalancer
     ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
     selector:
-        app: "akscluster-e2e5"
+        app: "akscluster-frontend"
