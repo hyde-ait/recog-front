@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "akscluster-e2e5"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "akscluster-e2e5"
+  template:
+    metadata:
+      labels:
+        app: "akscluster-e2e5"
+    spec:
+      containers:
+        - name: "akscluster-e2e5"
+          image: "aksregitery001.azurecr.io/akscluster"
+          ports:
+          - containerPort: 3000
