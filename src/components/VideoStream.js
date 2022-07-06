@@ -10,7 +10,9 @@ export default function VideoStream(props) {
   const [vidHeight, setVidHeight] = useState(320);
   const [vidWidth, setVidWidth] = useState(240);
   const [displayButton, setDisplayButton] = useState(true);
-  const [server, setServer] = useState("http://20.49.157.253/offer");
+  const [server, setServer] = useState(
+    "http://aks-back.7cb78e2f68504a8a8fad.uksouth.aksapp.io/offer"
+  );
   const metadata = useContext(MetadataContext);
   const [sturn, setSturn] = useState([
     { urls: ["stun:stun.l.google.com:19302"] },
